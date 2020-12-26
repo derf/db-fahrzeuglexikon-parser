@@ -8,6 +8,7 @@ mkdir -p svg pdf png
 
 # S. 6, 11ff
 ice1_bbox='78 45 830 198'
+#ice1_bbox='95 59 825 150' # doesn't work for 8029, 8031
 ice1_offset=11
 # Stelle 6 bis 9 der UIC-Wagennr.
 typeset -a ice1_types=(
@@ -28,7 +29,7 @@ typeset -a ice1_types=(
 
 # S. 25, 28ff
 # Stelle 6 bis 9
-ice2_bbox='77 38 825 197'
+ice2_bbox='77 46 825 175'
 ice2_offset=28
 typeset -a ice2_types=(
 8053 # Apmz
@@ -228,18 +229,27 @@ typeset -a ic1_types=(
 
 # S. 182, 187, 189, 191
 # Bombardier Twindexx
+ic2_bt_bbox='78 110 804 390'
+ic2_bt_offset=187
 typeset -a ic2_bt_types=(
-6872 # DApza # 687.2
-6822 # DBpza # 682.2
-6682 # DBpbzfa # 668.2
+DApza # 6872 # DApza # 687.2
+x
+DBpza # 6822 # DBpza # 682.2
+x
+DBpbzfa # 6682 # DBpbzfa # 668.2
 )
 
 # S. 192, 196, 198, 200, 202
 # Stadler KISS
+ic2_sk_bbox='78 110 820 390'
+ic2_sk_offset=196
 typeset -a ic2_sk_types=(
 1106 # DABpzfa # 110.F
+x
 1105 # DBpza # 110.E
+x
 1104 # DBpbza # 110.D
+x
 1101 # DBpdzfa # 110.A
 )
 
@@ -251,6 +261,11 @@ function extract_wagons() {
 
 	for i in {1..$#}; do
 		target=$@[$i]
+
+		if [[ $target == x ]]; then
+			continue
+		fi
+
 		echo "Page $(( start + i - 1 )): $target"
 
 		pdfcrop --bbox $bbox tmp-$(( start + i - 1 )).pdf crop.pdf &> /dev/null
@@ -266,6 +281,8 @@ function extract_wagons() {
 			typeset -a objects
 			inkscape --query-all crop.pdf 2> /dev/null | while read o x y w h; do
 				if (( w > 1000 )) && [[ $o == path* ]]; then
+					objects+=$o
+				elif (( x < 0 || y < 0 )) && [[ $o == path* || $o == tspan* ]]; then
 					objects+=$o
 				fi
 			done
@@ -296,8 +313,13 @@ extract_wagons $ice3_406_r_offset $ice3_406_r_bbox $ice3_406_r_types
 extract_wagons $ice3_407_offset   $ice3_407_bbox   $ice3_407_types
 extract_wagons $ice4_offset $ice4_bbox $ice4_types
 extract_wagons $ic1_offset $ic1_bbox $ic1_types
+extract_wagons $ic2_bt_offset $ic2_bt_bbox $ic2_bt_types
+extract_wagons $ic2_sk_offset $ic2_sk_bbox $ic2_sk_types
 
 rm tmp-*
+
+perl -MJSON -E 'say JSON->new->canonical->encode({map {$_ => true} @ARGV})' \
+	png/*(:t:r) > png/wagons.json
 
 chmod -R a+rX png
 rsync -a --info=progress2 --delete png/ epicentre:web/org.finalrewind.lib/out/dbdb/db_wagen/
