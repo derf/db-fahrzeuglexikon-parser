@@ -73,7 +73,7 @@ typeset -a ice3_403_2_types=(
 
 # S. 58, 61ff
 # Stelle 6 bis 9
-ice3_403_r_bbox='77 38 825 197'
+ice3_403_r_bbox='77 38 825 147'
 ice3_403_r_offset=61
 typeset -a ice3_403_r_types=(
 3r_4030 # Apmzf
@@ -105,7 +105,7 @@ typeset -a ice3_406_types=(
 # S. 80, 83ff
 # Mehrsystem
 # Stelle 6 bis 9
-ice3_406_r_bbox='77 38 825 197'
+ice3_406_r_bbox='77 38 825 147'
 ice3_406_r_offset=83
 typeset -a ice3_406_r_types=(
 3r_4060 # Apmzf
