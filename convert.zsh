@@ -205,7 +205,7 @@ typeset -a met_types=(
 )
 
 # S. 160, 164ff
-ic1_bbox='78 50 830 180'
+ic1_bbox='78 50 818 140'
 ic1_offset=164
 typeset -a ic1_types=(
 	Apmmz # 126
