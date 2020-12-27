@@ -4,11 +4,7 @@ setopt err_exit no_unset
 
 mkdir -p svg pdf png
 
-# bbox:     left bottom right top
-
 # S. 6, 11ff
-ice1_bbox='78 45 830 198'
-#ice1_bbox='95 59 825 150' # doesn't work for 8029, 8031
 ice1_offset=11
 # Stelle 6 bis 9 der UIC-Wagennr.
 typeset -a ice1_types=(
@@ -253,7 +249,7 @@ x
 1101 # DBpdzfa # 110.A
 )
 
-function extract_wagons() {
+function extract_wagons {
 	start=$1
 	shift
 	bbox=$1
@@ -301,18 +297,38 @@ function extract_wagons() {
 	done
 }
 
+function extract_wagons_heuristic {
+	start=$1
+	shift
+
+	for i in {1..$#}; do
+		target=$@[$i]
+
+		if [[ $target == x ]]; then
+			continue
+		fi
+
+		echo "Page $(( start + i - 1 )): $target"
+		inkscape --export-filename=svg/${target}.svg tmp-$(( start + i - 1 )).pdf &> /dev/null
+		lib/export-carriage.py svg/${target}.svg png/${target}.png
+	done
+}
+
 pdfseparate Fahrzeuglexikon_2020.pdf tmp-%d.pdf
 
-extract_wagons $ice1_offset $ice1_bbox $ice1_types
-extract_wagons $ice2_offset $ice2_bbox $ice2_types
-extract_wagons $ice3_403_1_offset $ice3_403_1_bbox $ice3_403_1_types
-extract_wagons $ice3_403_2_offset $ice3_403_2_bbox $ice3_403_2_types
-extract_wagons $ice3_403_r_offset $ice3_403_r_bbox $ice3_403_r_types
-extract_wagons $ice3_406_offset   $ice3_406_bbox   $ice3_406_types
-extract_wagons $ice3_406_r_offset $ice3_406_r_bbox $ice3_406_r_types
-extract_wagons $ice3_407_offset   $ice3_407_bbox   $ice3_407_types
-extract_wagons $ice4_offset $ice4_bbox $ice4_types
-extract_wagons $ic1_offset $ic1_bbox $ic1_types
+extract_wagons_heuristic $ice1_offset        $ice1_types
+extract_wagons_heuristic $ice2_offset        $ice2_types
+extract_wagons_heuristic $ice3_403_1_offset  $ice3_403_1_types
+extract_wagons_heuristic $ice3_403_2_offset  $ice3_403_2_types
+extract_wagons_heuristic $ice3_403_r_offset  $ice3_403_r_types
+extract_wagons_heuristic $ice3_406_offset    $ice3_406_types
+extract_wagons_heuristic $ice3_406_r_offset  $ice3_406_r_types
+extract_wagons_heuristic $ice3_407_offset    $ice3_407_types
+extract_wagons_heuristic $ice4_offset        $ice4_types
+extract_wagons_heuristic $icet_411_s1_offset $icet_411_s1_types
+extract_wagons_heuristic $icet_411_s2_offset $icet_411_s2_types
+extract_wagons_heuristic $icet_415_offset    $icet_415_types
+extract_wagons_heuristic $ic1_offset         $ic1_types
 extract_wagons $ic2_bt_offset $ic2_bt_bbox $ic2_bt_types
 extract_wagons $ic2_sk_offset $ic2_sk_bbox $ic2_sk_types
 
