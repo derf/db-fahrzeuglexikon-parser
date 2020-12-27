@@ -68,6 +68,7 @@ def main(infile, *outfiles):
             subprocess.run(
                 [
                     "xvfb-run",
+                    "-a",
                     "inkscape",
                     "--export-area-drawing",
                     select_objects,
@@ -83,6 +84,7 @@ def main(infile, *outfiles):
             subprocess.run(
                 [
                     "xvfb-run",
+                    "-a",
                     "inkscape",
                     "--export-area-drawing",
                     select_objects,
