@@ -329,12 +329,13 @@ extract_wagons_heuristic $icet_411_s1_offset $icet_411_s1_types
 extract_wagons_heuristic $icet_411_s2_offset $icet_411_s2_types
 extract_wagons_heuristic $icet_415_offset    $icet_415_types
 extract_wagons_heuristic $ic1_offset         $ic1_types
+
 extract_wagons $ic2_bt_offset $ic2_bt_bbox $ic2_bt_types
 extract_wagons $ic2_sk_offset $ic2_sk_bbox $ic2_sk_types
 
 rm tmp-*
 
-perl -MJSON -E 'say JSON->new->canonical->encode({map {$_ => true} @ARGV})' \
+perl -MJSON -E 'say JSON->new->canonical->encode({map {$_ => \1} @ARGV})' \
 	png/*.png(:t:r) > png/wagons.json
 
 chmod -R a+rX png
