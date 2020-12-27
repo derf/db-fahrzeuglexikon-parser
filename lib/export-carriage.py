@@ -50,7 +50,7 @@ def main(infile, *outfiles):
     candidates = list(filter(lambda i: bins[i] > 2, range(len(bins))))
 
     crop_y_min = np.min(candidates) - 1
-    crop_y_max = np.max(candidates) + 4
+    crop_y_max = np.max(candidates) + 5
 
     objects_to_delete = list()
     x_positions = list()
