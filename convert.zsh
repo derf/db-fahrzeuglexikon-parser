@@ -155,7 +155,7 @@ typeset -a ice4_types=(
 
 # S. 120, 123ff
 # Stelle 6 bis 9
-icet_411_s1_bbox='77 38 825 197'
+icet_411_s1_bbox='77 38 825 160'
 icet_411_s1_offset=123
 typeset -a icet_411_s1_types=(
 t1_4110 # Apmzf
@@ -169,7 +169,7 @@ t1_4115 # Bpmzf
 
 # S. 130, 133ff
 # Stelle 6 bis 9
-icet_411_s2_bbox='77 38 825 197'
+icet_411_s2_bbox='77 38 825 160'
 icet_411_s2_offset=133
 typeset -a icet_411_s2_types=(
 t2_4110 # Apmzf
