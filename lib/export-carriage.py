@@ -27,7 +27,7 @@ class SVGObject:
         )
 
 
-def main(infile, outfile):
+def main(infile, *outfiles):
     ret = subprocess.run(
         ["inkscape", "--query-all", infile], capture_output=True, check=True
     )
@@ -56,34 +56,45 @@ def main(infile, outfile):
     x_positions = list()
 
     for o in objects:
-        if (o.is_path or o.is_tspan) and (o.y < crop_y_min or o.y_ > crop_y_max):
+        if (o.is_path() or o.is_tspan()) and (o.y < crop_y_min or o.y_ > crop_y_max):
             objects_to_delete.append(o.id)
-        elif o.is_path and o.y >= crop_y_min and o.y_ <= crop_y_max:
-            x_positions.append(o.x)
-            x_positions.append(o.x_)
-
-    crop_x_min = int(np.min(x_positions))
-    crop_x_max = int(np.max(x_positions)) + 1
 
     objects_to_delete = ",".join(objects_to_delete)
 
-    export_area = f"--export-area={crop_x_min}:{crop_y_min}:{crop_x_max}:{crop_y_max}"
     select_objects = f"--select={objects_to_delete}"
 
-    subprocess.run(
-        [
-            "xvfb-run",
-            "inkscape",
-            export_area,
-            select_objects,
-            "--verb=EditDelete",
-            "--batch-process",
-            "--export-dpi=600",
-            "-o",
-            outfile,
-            infile,
-        ]
-    )
+    for outfile in outfiles:
+        if outfile.endswith(".png"):
+            subprocess.run(
+                [
+                    "xvfb-run",
+                    "inkscape",
+                    "--export-area-drawing",
+                    select_objects,
+                    "--verb=EditDelete",
+                    "--batch-process",
+                    "--export-dpi=600",
+                    "-o",
+                    outfile,
+                    infile,
+                ]
+            )
+        elif outfile.endswith(".svg"):
+            subprocess.run(
+                [
+                    "xvfb-run",
+                    "inkscape",
+                    "--export-area-drawing",
+                    select_objects,
+                    "--verb=EditDelete",
+                    "--batch-process",
+                    "-o",
+                    outfile,
+                    infile,
+                ]
+            )
+        else:
+            raise RuntimeError(f"Unsupported export format: {outfile}")
 
 
 if __name__ == "__main__":

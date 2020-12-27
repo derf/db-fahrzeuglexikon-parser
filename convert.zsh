@@ -310,7 +310,7 @@ function extract_wagons_heuristic {
 
 		echo "Page $(( start + i - 1 )): $target"
 		inkscape --export-filename=svg/${target}.svg tmp-$(( start + i - 1 )).pdf &> /dev/null
-		lib/export-carriage.py svg/${target}.svg png/${target}.png
+		lib/export-carriage.py svg/${target}.svg png/${target}.png png/${target}.svg
 	done
 }
 
@@ -335,7 +335,7 @@ extract_wagons $ic2_sk_offset $ic2_sk_bbox $ic2_sk_types
 rm tmp-*
 
 perl -MJSON -E 'say JSON->new->canonical->encode({map {$_ => true} @ARGV})' \
-	png/*(:t:r) > png/wagons.json
+	png/*.png(:t:r) > png/wagons.json
 
 chmod -R a+rX png
 rsync -a --info=progress2 --delete png/ epicentre:web/org.finalrewind.lib/out/dbdb/db_wagen/
