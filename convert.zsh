@@ -25,7 +25,6 @@ typeset -a ice1_types=(
 
 # S. 25, 28ff
 # Stelle 6 bis 9
-ice2_bbox='77 46 825 175'
 ice2_offset=28
 typeset -a ice2_types=(
 8053 # Apmz
@@ -39,7 +38,6 @@ typeset -a ice2_types=(
 
 # S. 36, 39ff
 # Stelle 6 bis 9
-ice3_403_1_bbox='77 38 825 197'
 ice3_403_1_offset=39
 typeset -a ice3_403_1_types=(
 31_4030 # Apmzf
@@ -54,7 +52,6 @@ typeset -a ice3_403_1_types=(
 
 # S. 47, 50ff
 # Stelle 6 bis 9
-ice3_403_2_bbox='77 38 825 197'
 ice3_403_2_offset=50
 typeset -a ice3_403_2_types=(
 32_4030 # Apmzf
@@ -69,7 +66,6 @@ typeset -a ice3_403_2_types=(
 
 # S. 58, 61ff
 # Stelle 6 bis 9
-ice3_403_r_bbox='77 38 825 147'
 ice3_403_r_offset=61
 typeset -a ice3_403_r_types=(
 3r_4030 # Apmzf
@@ -85,7 +81,6 @@ typeset -a ice3_403_r_types=(
 # Mehrsystem
 # S. 69, 72ff
 # Stelle 6 bis 9
-ice3_406_bbox='77 38 825 197'
 ice3_406_offset=72
 typeset -a ice3_406_types=(
 3_4060 # Apmzf
@@ -101,7 +96,6 @@ typeset -a ice3_406_types=(
 # S. 80, 83ff
 # Mehrsystem
 # Stelle 6 bis 9
-ice3_406_r_bbox='77 38 825 147'
 ice3_406_r_offset=83
 typeset -a ice3_406_r_types=(
 3r_4060 # Apmzf
@@ -117,7 +111,6 @@ typeset -a ice3_406_r_types=(
 # S. 91, 94ff
 # Velaro
 # Stelle 6 bis 9
-ice3_407_bbox='77 38 825 197'
 ice3_407_offset=94
 typeset -a ice3_407_types=(
 4070 # Apmzf
@@ -132,7 +125,6 @@ typeset -a ice3_407_types=(
 
 # S. 103, 107ff
 # Stelle 5 bis 9
-ice4_bbox='77 45 825 180'
 ice4_offset=107
 typeset -a ice4_types=(
 08120 # Apmzf, "938008120264"
@@ -151,7 +143,6 @@ typeset -a ice4_types=(
 
 # S. 120, 123ff
 # Stelle 6 bis 9
-icet_411_s1_bbox='77 38 825 160'
 icet_411_s1_offset=123
 typeset -a icet_411_s1_types=(
 t1_4110 # Apmzf
@@ -165,7 +156,6 @@ t1_4115 # Bpmzf
 
 # S. 130, 133ff
 # Stelle 6 bis 9
-icet_411_s2_bbox='77 38 825 160'
 icet_411_s2_offset=133
 typeset -a icet_411_s2_types=(
 t2_4110 # Apmzf
@@ -179,7 +169,6 @@ t2_4115 # Bpmzf
 
 # S. 140, 143ff
 # Stelle 6 bis 9
-icet_415_bbox='77 38 825 197'
 icet_415_offset=143
 typeset -a icet_415_types=(
 4150 # Apmzf
@@ -201,7 +190,6 @@ typeset -a met_types=(
 )
 
 # S. 160, 164ff
-ic1_bbox='78 50 818 140'
 ic1_offset=164
 typeset -a ic1_types=(
 	Apmmz # 126
@@ -225,7 +213,6 @@ typeset -a ic1_types=(
 
 # S. 182, 187, 189, 191
 # Bombardier Twindexx
-ic2_bt_bbox='78 110 804 390'
 ic2_bt_offset=187
 typeset -a ic2_bt_types=(
 DApza # 6872 # DApza # 687.2
@@ -237,7 +224,6 @@ DBpbzfa # 6682 # DBpbzfa # 668.2
 
 # S. 192, 196, 198, 200, 202
 # Stadler KISS
-ic2_sk_bbox='78 110 820 390'
 ic2_sk_offset=196
 typeset -a ic2_sk_types=(
 1106 # DABpzfa # 110.F
@@ -252,8 +238,6 @@ x
 function extract_wagons {
 	start=$1
 	shift
-	bbox=$1
-	shift
 
 	for i in {1..$#}; do
 		target=$@[$i]
@@ -263,75 +247,38 @@ function extract_wagons {
 		fi
 
 		echo "Page $(( start + i - 1 )): $target"
-
-		pdfcrop --bbox $bbox tmp-$(( start + i - 1 )).pdf crop.pdf &> /dev/null
-
-		# The wagon layout uses two white rectangles as background. one spans the
-		# entire page, one just the wagon. By removing these, we gain a wagon
-		# image with a transparent background, allowing it to be used both on
-		# light and dark HTML pages. The background's path IDs are (somewhat)
-		# random, so we simply remove all paths whose width exceeds the expected
-		# width of the wagon symbol.
-		paths=$(
-			IFS=,
-			typeset -a objects
-			inkscape --query-all crop.pdf 2> /dev/null | while read o x y w h; do
-				if (( w > 1000 )) && [[ $o == path* ]]; then
-					objects+=$o
-				elif (( x < 0 || y < 0 )) && [[ $o == path* || $o == tspan* ]]; then
-					objects+=$o
-				fi
-			done
-			echo ${(j:,:)objects}
-		)
-
-		# when an inkscape command uses GUI verbs and performs a PDF import, it
-		# opens the PDF Import Settings dialog. This cannot be overridden.
-		# So we first convert to SVG (without GUI verbs, thus without triggering
-		# the dialog) and then to PNG.
-		inkscape --export-filename=svg/${target}.svg crop.pdf &> /dev/null
-		xvfb-run inkscape --select=${paths} --verb=EditDelete --batch-process \
-			--export-dpi=600 -o png/${target}.png svg/${target}.svg &> /dev/null
-
-		mv crop.pdf pdf/${target}.pdf
-	done
-}
-
-function extract_wagons_heuristic {
-	start=$1
-	shift
-
-	for i in {1..$#}; do
-		target=$@[$i]
-
-		if [[ $target == x ]]; then
-			continue
-		fi
-
-		echo "Page $(( start + i - 1 )): $target"
-		inkscape --export-filename=svg/${target}.svg tmp-$(( start + i - 1 )).pdf &> /dev/null
+		cp tmp-$(( start + i - 1 )).pdf pdf/${target}.pdf
+		inkscape --export-filename=svg/${target}.svg pdf/${target}.pdf &> /dev/null
 		lib/export-carriage.py svg/${target}.svg png/${target}.png png/${target}.svg
+		if (( doubledecker )); then
+			double_decker_export=upper lib/export-carriage.py svg/${target}.svg png/${target}_u.png png/${target}_u.svg
+			double_decker_export=lower lib/export-carriage.py svg/${target}.svg png/${target}_l.png png/${target}_l.svg
+		fi
 	done
 }
 
 pdfseparate Fahrzeuglexikon_2020.pdf tmp-%d.pdf
 
-extract_wagons_heuristic $ice1_offset        $ice1_types
-extract_wagons_heuristic $ice2_offset        $ice2_types
-extract_wagons_heuristic $ice3_403_1_offset  $ice3_403_1_types
-extract_wagons_heuristic $ice3_403_2_offset  $ice3_403_2_types
-extract_wagons_heuristic $ice3_403_r_offset  $ice3_403_r_types
-extract_wagons_heuristic $ice3_406_offset    $ice3_406_types
-extract_wagons_heuristic $ice3_406_r_offset  $ice3_406_r_types
-extract_wagons_heuristic $ice3_407_offset    $ice3_407_types
-extract_wagons_heuristic $ice4_offset        $ice4_types
-extract_wagons_heuristic $icet_411_s1_offset $icet_411_s1_types
-extract_wagons_heuristic $icet_411_s2_offset $icet_411_s2_types
-extract_wagons_heuristic $icet_415_offset    $icet_415_types
-extract_wagons_heuristic $ic1_offset         $ic1_types
+doubledecker=0
 
-extract_wagons $ic2_bt_offset $ic2_bt_bbox $ic2_bt_types
-extract_wagons $ic2_sk_offset $ic2_sk_bbox $ic2_sk_types
+extract_wagons $ice1_offset        $ice1_types
+extract_wagons $ice2_offset        $ice2_types
+extract_wagons $ice3_403_1_offset  $ice3_403_1_types
+extract_wagons $ice3_403_2_offset  $ice3_403_2_types
+extract_wagons $ice3_403_r_offset  $ice3_403_r_types
+extract_wagons $ice3_406_offset    $ice3_406_types
+extract_wagons $ice3_406_r_offset  $ice3_406_r_types
+extract_wagons $ice3_407_offset    $ice3_407_types
+extract_wagons $ice4_offset        $ice4_types
+extract_wagons $icet_411_s1_offset $icet_411_s1_types
+extract_wagons $icet_411_s2_offset $icet_411_s2_types
+extract_wagons $icet_415_offset    $icet_415_types
+extract_wagons $ic1_offset         $ic1_types
+
+doubledecker=1
+
+extract_wagons $ic2_bt_offset $ic2_bt_types
+extract_wagons $ic2_sk_offset $ic2_sk_types
 
 rm tmp-*
 
