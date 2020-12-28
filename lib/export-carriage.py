@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+import os
 import subprocess
 import sys
 
@@ -43,8 +44,19 @@ def main(infile, *outfiles):
 
     ys = list()
     for o in objects:
-        if o.is_path() and o.h > 2 and o.h < 4 and o.w > 10:
+        if o.is_path() and o.h > 2 and o.h < 4 and o.w > 9:
             ys.append(o.y)
+
+    ys = np.array(ys, dtype=np.int64)
+
+    if "double_decker_export" in os.environ:
+        # the first object is the "svg2" element describing the entire document
+        split = objects[0].h * 0.6
+        if os.environ["double_decker_export"] == "lower":
+            ys = ys[ys >= split]
+        else:
+            ys = ys[ys <= split]
+
     bins = np.bincount(ys)
 
     candidates = list(filter(lambda i: bins[i] > 2, range(len(bins))))
