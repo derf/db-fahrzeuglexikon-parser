@@ -253,11 +253,16 @@ function extract_wagons {
 		if (( doubledecker )); then
 			double_decker_export=upper lib/export-carriage.py svg/${target}.svg png/${target}_u.png png/${target}_u.svg
 			double_decker_export=lower lib/export-carriage.py svg/${target}.svg png/${target}_l.png png/${target}_l.svg
+			lib/carriage-json.pl png/wagons.json tmp-$(( start + i - 2 )).pdf ${target} ${target}_u ${target}_l
+		else
+			lib/carriage-json.pl png/wagons.json pdf/${target}.pdf ${target}
 		fi
 	done
 }
 
 pdfseparate Fahrzeuglexikon_2020.pdf tmp-%d.pdf
+
+echo '{}' > png/wagons.json
 
 doubledecker=0
 
@@ -281,9 +286,6 @@ extract_wagons $ic2_bt_offset $ic2_bt_types
 extract_wagons $ic2_sk_offset $ic2_sk_types
 
 rm tmp-*
-
-perl -MJSON -E 'say JSON->new->canonical->encode({map {$_ => \1} @ARGV})' \
-	png/*.png(:t:r) > png/wagons.json
 
 chmod -R a+rX png
 rsync -a --info=progress2 --delete png/ epicentre:web/org.finalrewind.lib/out/dbdb/db_wagen/
