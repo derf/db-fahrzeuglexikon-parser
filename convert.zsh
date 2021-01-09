@@ -8,74 +8,74 @@ mkdir -p svg pdf png
 ice1_offset=11
 # Stelle 6 bis 9 der UIC-Wagennr.
 typeset -a ice1_types=(
-8018 # Avmz, "93805>8018<566"
-8014 # Avmz, "93805>8010<068"
-8010 # Avmz, "93805>8010<571"
-8031 # Apmbsz, "93805>8031<569"
-8040 # WRmz ("WSmz")
-8020 # Bvmz
-8029 # Bpmz
-8023 # Bvmz handy, familie
-8023 # Bvmz ruhe
-8023 # Bvmz handy
-8026 # Bvmz
-8028 # Bvmz
-8027 # Bvmz
+58018 # Avmz, "93805>8018<566"
+58014 # Avmz, "93805>8010<068"
+58010 # Avmz, "93805>8010<571"
+58031 # Apmbsz, "93805>8031<569"
+58040 # WRmz ("WSmz")
+58020 # Bvmz
+58029 # Bpmz
+58023 # Bvmz handy, familie
+58023 # Bvmz ruhe
+58023 # Bvmz handy
+58026 # Bvmz
+58028 # Bvmz
+58027 # Bvmz
 )
 
 # S. 25, 28ff
 # Stelle 6 bis 9
 ice2_offset=28
 typeset -a ice2_types=(
-8053 # Apmz
-8050 # Apmz
-8070 # WRmbsz
-8060 # Bpmbz
-8063 # Bpmz
-8066 # Bpmz
-8080 # Bpmzf
+58053 # Apmz
+58050 # Apmz
+58070 # WRmbsz
+58060 # Bpmbz
+58063 # Bpmz
+58066 # Bpmz
+58080 # Bpmzf
 )
 
 # S. 36, 39ff
 # Stelle 6 bis 9
 ice3_403_1_offset=39
 typeset -a ice3_403_1_types=(
-31_4030 # Apmzf
-31_4031 # Avmz
-31_4032 # Bvmz
-31_4033 # BRmz
-31_4038 # Bpmbz
-31_4037 # Bpmz
-31_4036 # Bpmz
-31_4035 # Bpmzf
+54030.1 # Apmzf
+54031.1 # Avmz
+54032.1 # Bvmz
+54033.1 # BRmz
+54038.1 # Bpmbz
+54037.1 # Bpmz
+54036.1 # Bpmz
+54035.1 # Bpmzf
 )
 
 # S. 47, 50ff
 # Stelle 6 bis 9
 ice3_403_2_offset=50
 typeset -a ice3_403_2_types=(
-32_4030 # Apmzf
-32_4031 # Avmz
-32_4032 # Bvmz
-32_4033 # BRmz
-32_4038 # Bpmbz
-32_4037 # Bpmz
-32_4036 # Bpmz
-32_4035 # Bpmzf
+54030.2 # Apmzf
+54031.2 # Avmz
+54032.2 # Bvmz
+54033.2 # BRmz
+54038.2 # Bpmbz
+54037.2 # Bpmz
+54036.2 # Bpmz
+54035.2 # Bpmzf
 )
 
 # S. 58, 61ff
 # Stelle 6 bis 9
 ice3_403_r_offset=61
 typeset -a ice3_403_r_types=(
-3r_4030 # Apmzf
-3r_4031 # Avmz
-3r_4032 # Bvmz
-3r_4033 # WRmz
-3r_4038 # Bpmbz
-3r_4037 # Bpmz
-3r_4036 # Bpmz
-3r_4035 # Bpmzf
+54030.r # Apmzf
+54031.r # Avmz
+54032.r # Bvmz
+54033.r # WRmz
+54038.r # Bpmbz
+54037.r # Bpmz
+54036.r # Bpmz
+54035.r # Bpmzf
 )
 
 # Mehrsystem
@@ -83,14 +83,14 @@ typeset -a ice3_403_r_types=(
 # Stelle 6 bis 9
 ice3_406_offset=72
 typeset -a ice3_406_types=(
-3_4060 # Apmzf
-3_4061 # Avmz
-3_4062 # Bvmz
-3_4063 # BRmz
-3_4068 # Bpmbz
-3_4067 # Bpmz
-3_4066 # Bpmz
-3_4065 # Bpmzf
+54060 # Apmzf
+54061 # Avmz
+54062 # Bvmz
+54063 # BRmz
+54068 # Bpmbz
+54067 # Bpmz
+54066 # Bpmz
+54065 # Bpmzf
 )
 
 # S. 80, 83ff
@@ -98,14 +98,14 @@ typeset -a ice3_406_types=(
 # Stelle 6 bis 9
 ice3_406_r_offset=83
 typeset -a ice3_406_r_types=(
-3r_4060 # Apmzf
-3r_4061 # Avmz
-3r_4062 # Bvmz
-3r_4063 # WRmz
-3r_4068 # Bpmbz
-3r_4067 # Bpmz
-3r_4066 # Bpmz
-3r_4065 # Bpmzf
+54060.r # Apmzf
+54061.r # Avmz
+54062.r # Bvmz
+54063.r # WRmz
+54068.r # Bpmbz
+54067.r # Bpmz
+54066.r # Bpmz
+54065.r # Bpmzf
 )
 
 # S. 91, 94ff
@@ -113,14 +113,14 @@ typeset -a ice3_406_r_types=(
 # Stelle 6 bis 9
 ice3_407_offset=94
 typeset -a ice3_407_types=(
-4070 # Apmzf
-4071 # Apmz
-4072 # ARmz
-4073 # Bpmbsz
-4078 # Bpmz
-4077 # Bpmz
-4076 # Bpmz
-4075 # Bpmzf
+54070 # Apmzf
+54071 # Apmz
+54072 # ARmz
+54073 # Bpmbsz
+54078 # Bpmz
+54077 # Bpmz
+54076 # Bpmz
+54075 # Bpmzf
 )
 
 # S. 103, 107ff
@@ -145,37 +145,37 @@ typeset -a ice4_types=(
 # Stelle 6 bis 9
 icet_411_s1_offset=123
 typeset -a icet_411_s1_types=(
-t1_4110 # Apmzf
-t1_4111 # ABpmz
-t1_4112 # WRmz
-t1_4118 # Bpmdz
-t1_4117 # Bpmbz
-t1_4116 # Bpmz
-t1_4115 # Bpmzf
+54110.1 # Apmzf
+54111.1 # ABpmz
+54112.1 # WRmz
+54118.1 # Bpmdz
+54117.1 # Bpmbz
+54116.1 # Bpmz
+54115.1 # Bpmzf
 )
 
 # S. 130, 133ff
 # Stelle 6 bis 9
 icet_411_s2_offset=133
 typeset -a icet_411_s2_types=(
-t2_4110 # Apmzf
-t2_4111 # ABpmz
-t2_4112 # WRmz
-t2_4118 # Bpmdz
-t2_4117 # Bpmz
-t2_4116 # Bpmbz
-t2_4115 # Bpmzf
+54110.2 # Apmzf
+54111.2 # ABpmz
+54112.2 # WRmz
+54118.2 # Bpmdz
+54117.2 # Bpmz
+54116.2 # Bpmbz
+54115.2 # Bpmzf
 )
 
 # S. 140, 143ff
 # Stelle 6 bis 9
 icet_415_offset=143
 typeset -a icet_415_types=(
-4150 # Apmzf
-4151 # BRpmz
-4157 # Bpmz
-4156 # Bpmbz
-4155 # Bpmzf
+54150 # Apmzf
+54151 # BRpmz
+54157 # Bpmz
+54156 # Bpmbz
+54155 # Bpmzf
 )
 
 # S. 149, 152ff
@@ -226,13 +226,13 @@ DBpbzfa # 6682 # DBpbzfa # 668.2
 # Stadler KISS
 ic2_sk_offset=196
 typeset -a ic2_sk_types=(
-1106 # DABpzfa # 110.F
+41106 # DABpzfa # 110.F
 x
-1105 # DBpza # 110.E
+41105 # DBpza # 110.E
 x
-1104 # DBpbza # 110.D
+41104 # DBpbza # 110.D
 x
-1101 # DBpdzfa # 110.A
+41101 # DBpdzfa # 110.A
 )
 
 function extract_wagons {
