@@ -23,9 +23,22 @@ typeset -a ice1_types=(
 58027 # Bvmz
 )
 
-# S. 25, 28ff
-# Stelle 6 bis 9
-ice2_offset=28
+# S. 24, 28ff
+ice1_r_offset=28
+typeset -a ice1_r_types=(
+58018.r # Avmz
+58014.r,58010.r # Avmz
+58040.r # WRmz (WSmz)
+58031.r # Bpmbsz
+85023.r # Bvmz
+58023.r # Bvmz
+85023.r # Bvmz
+58026.r # Bvmz
+58028.r # Bvmz
+)
+
+# S. 38, 41ff
+ice2_offset=41
 typeset -a ice2_types=(
 58053 # Apmz
 58050 # Apmz
@@ -36,9 +49,8 @@ typeset -a ice2_types=(
 58080 # Bpmzf
 )
 
-# S. 36, 39ff
-# Stelle 6 bis 9
-ice3_403_1_offset=39
+# S. 49, 52ff
+ice3_403_1_offset=52
 typeset -a ice3_403_1_types=(
 54030.1 # Apmzf
 54031.1 # Avmz
@@ -50,9 +62,8 @@ typeset -a ice3_403_1_types=(
 54035.1 # Bpmzf
 )
 
-# S. 47, 50ff
-# Stelle 6 bis 9
-ice3_403_2_offset=50
+# S. 60, 63ff
+ice3_403_2_offset=63
 typeset -a ice3_403_2_types=(
 54030.2 # Apmzf
 54031.2 # Avmz
@@ -64,9 +75,8 @@ typeset -a ice3_403_2_types=(
 54035.2 # Bpmzf
 )
 
-# S. 58, 61ff
-# Stelle 6 bis 9
-ice3_403_r_offset=61
+# S. 71, 74ff
+ice3_403_r_offset=74
 typeset -a ice3_403_r_types=(
 54030.r # Apmzf
 54031.r # Avmz
@@ -79,9 +89,8 @@ typeset -a ice3_403_r_types=(
 )
 
 # Mehrsystem
-# S. 69, 72ff
-# Stelle 6 bis 9
-ice3_406_offset=72
+# S. 82, 85ff
+ice3_406_offset=85
 typeset -a ice3_406_types=(
 54060 # Apmzf
 54061 # Avmz
@@ -93,10 +102,9 @@ typeset -a ice3_406_types=(
 54065 # Bpmzf
 )
 
-# S. 80, 83ff
+# S. 93, 96ff
 # Mehrsystem
-# Stelle 6 bis 9
-ice3_406_r_offset=83
+ice3_406_r_offset=96
 typeset -a ice3_406_r_types=(
 54060.r # Apmzf
 54061.r # Avmz
@@ -108,10 +116,9 @@ typeset -a ice3_406_r_types=(
 54065.r # Bpmzf
 )
 
-# S. 91, 94ff
+# S. 104, 107ff
 # Velaro
-# Stelle 6 bis 9
-ice3_407_offset=94
+ice3_407_offset=107
 typeset -a ice3_407_types=(
 54070 # Apmzf
 54071 # Apmz
@@ -123,12 +130,25 @@ typeset -a ice3_407_types=(
 54075 # Bpmzf
 )
 
-# S. 103, 107ff
-# Stelle 5 bis 9
-ice4_offset=107
-typeset -a ice4_types=(
-08120 # Apmzf, "938008120264"
-18120 # Apmz, "938018120262"
+# S. 116, 119ff
+# ICE 4 (7x)
+ice4_7_offset=119
+typeset -a ice4_7_types=(
+68122 # Apmzf
+88122 # ARmz
+74122 # Bpmbsz
+34122 # Bpmz
+38122 # Bpmz
+34127 # Bpmz
+78122 # Bpmdzf
+)
+
+# S. 126, 130ff
+# ICE 4 (12x)
+ice4_12_offset=130
+typeset -a ice4_12_types=(
+08120 # Apmzf
+18120 # Apmz
 14120 # Apmz
 88120 # ARmz
 64120 # Bpmbsz
@@ -141,9 +161,28 @@ typeset -a ice4_types=(
 58120 # Bpmdzf
 )
 
-# S. 120, 123ff
-# Stelle 6 bis 9
-icet_411_s1_offset=123
+# S. 142, 147ff
+# ICE 4 (13x)
+ice4_13_offset=147
+typeset -a ice4_13_types=(
+08120 # Apmzf
+18120 # Apmz
+14120 # Apmz
+88120 # ARmz
+64120 # Bpmbsz
+98120 # Bpmz
+24120 # Bpmz
+24123 # Bpmz
+48120 # Bpmz
+24127 # Bpmz
+24125 # Bpmz
+24128 # Bpmz
+58120 # Bpmdzf
+)
+
+
+# S. 161, 164ff
+icet_411_s1_offset=164
 typeset -a icet_411_s1_types=(
 54110.1 # Apmzf
 54111.1 # ABpmz
@@ -154,9 +193,8 @@ typeset -a icet_411_s1_types=(
 54115.1 # Bpmzf
 )
 
-# S. 130, 133ff
-# Stelle 6 bis 9
-icet_411_s2_offset=133
+# S. 171, 174ff
+icet_411_s2_offset=174
 typeset -a icet_411_s2_types=(
 54110.2 # Apmzf
 54111.2 # ABpmz
@@ -167,9 +205,8 @@ typeset -a icet_411_s2_types=(
 54115.2 # Bpmzf
 )
 
-# S. 140, 143ff
-# Stelle 6 bis 9
-icet_415_offset=143
+# S. 181, 184ff
+icet_415_offset=184
 typeset -a icet_415_types=(
 54150 # Apmzf
 54151 # BRpmz
@@ -178,7 +215,7 @@ typeset -a icet_415_types=(
 54155 # Bpmzf
 )
 
-# S. 149, 152ff
+# S. 190, 193ff
 typeset -a met_types=(
 1160 # Apmz (2. Kl.)
 1161 # Apmz (2. Kl.)
@@ -189,8 +226,8 @@ typeset -a met_types=(
 1168 # Apmbzf (1. Kl.)
 )
 
-# S. 160, 164ff
-ic1_offset=164
+# S. 201, 205ff
+ic1_offset=205
 typeset -a ic1_types=(
 	Apmmz # 126
 	Avmmz # 106
@@ -204,16 +241,17 @@ typeset -a ic1_types=(
 	Bpmmbz # 284
 	Bpmmdz # 285
 	Bimmdzf # 287
+	Avmz # 108
 	Avmz # 109
 	ARkimbz # 266
 	Bvmsz # 186
 	Bpmbz # 294
-	Bpmbz # 294
+	Bpmz # 294
 )
 
-# S. 182, 187, 189, 191
+# S. 224, 228, 230, 232
 # Bombardier Twindexx
-ic2_bt_offset=187
+ic2_bt_offset=229
 typeset -a ic2_bt_types=(
 DApza # 6872 # DApza # 687.2
 x
@@ -222,9 +260,8 @@ x
 DBpbzfa # 6682 # DBpbzfa # 668.2
 )
 
-# S. 192, 196, 198, 200, 202
 # Stadler KISS
-ic2_sk_offset=196
+ic2_sk_offset=238
 typeset -a ic2_sk_types=(
 41106 # DABpzfa # 110.F
 x
@@ -240,33 +277,36 @@ function extract_wagons {
 	shift
 
 	for i in {1..$#}; do
-		target=$@[$i]
+		targetlist=$@[$i]
 
-		if [[ $target == x ]]; then
+		if [[ $targetlist == x ]]; then
 			continue
 		fi
 
-		echo "Page $(( start + i - 1 )): $target"
-		cp tmp-$(( start + i - 1 )).pdf pdf/${target}.pdf
-		inkscape --export-filename=svg/${target}.svg pdf/${target}.pdf &> /dev/null
-		lib/export-carriage.py svg/${target}.svg png/${target}.png png/${target}.svg
-		if (( doubledecker )); then
-			double_decker_export=upper lib/export-carriage.py svg/${target}.svg png/${target}_u.png png/${target}_u.svg
-			double_decker_export=lower lib/export-carriage.py svg/${target}.svg png/${target}_l.png png/${target}_l.svg
-			lib/carriage-json.pl png/wagons.json tmp-$(( start + i - 2 )).pdf ${target} ${target}_u ${target}_l
-		else
-			lib/carriage-json.pl png/wagons.json pdf/${target}.pdf ${target}
-		fi
+		for target in ${(s:,:)targetlist}; do
+			echo "Page $(( start + i - 1 )): $target"
+			cp tmp-$(( start + i - 1 )).pdf pdf/${target}.pdf
+			inkscape --export-filename=svg/${target}.svg pdf/${target}.pdf &> /dev/null
+			lib/export-carriage.py svg/${target}.svg png/${target}.png png/${target}.svg
+			if (( doubledecker )); then
+				double_decker_export=upper lib/export-carriage.py svg/${target}.svg png/${target}_u.png png/${target}_u.svg
+				double_decker_export=lower lib/export-carriage.py svg/${target}.svg png/${target}_l.png png/${target}_l.svg
+				lib/carriage-json.pl png/wagons.json tmp-$(( start + i - 2 )).pdf ${target} ${target}_u ${target}_l
+			else
+				lib/carriage-json.pl png/wagons.json pdf/${target}.pdf ${target}
+			fi
+		done
 	done
 }
 
-pdfseparate Fahrzeuglexikon_2020.pdf tmp-%d.pdf
+pdfseparate Fahrzeuglexikon_2021_PW.pdf tmp-%d.pdf
 
 echo '{}' > png/wagons.json
 
 doubledecker=0
 
 extract_wagons $ice1_offset        $ice1_types
+extract_wagons $ice1_r_offset      $ice1_r_types
 extract_wagons $ice2_offset        $ice2_types
 extract_wagons $ice3_403_1_offset  $ice3_403_1_types
 extract_wagons $ice3_403_2_offset  $ice3_403_2_types
@@ -274,7 +314,9 @@ extract_wagons $ice3_403_r_offset  $ice3_403_r_types
 extract_wagons $ice3_406_offset    $ice3_406_types
 extract_wagons $ice3_406_r_offset  $ice3_406_r_types
 extract_wagons $ice3_407_offset    $ice3_407_types
-extract_wagons $ice4_offset        $ice4_types
+extract_wagons $ice4_7_offset      $ice4_7_types
+extract_wagons $ice4_12_offset     $ice4_12_types
+extract_wagons $ice4_13_offset     $ice4_13_types
 extract_wagons $icet_411_s1_offset $icet_411_s1_types
 extract_wagons $icet_411_s2_offset $icet_411_s2_types
 extract_wagons $icet_415_offset    $icet_415_types
